@@ -51,4 +51,9 @@ uint64_t	get_time_now(uint64_t start)
 	return (time);
 }
 
+int		baze_process(t_table *table);
+int		check_if_die(t_philo *phi, t_table *table);
+void	*func_for_thread(void *arg);
+void	create_thread_func(t_table *table, int i);
+
 #endif

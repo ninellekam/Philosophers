@@ -39,11 +39,6 @@ void	put_forks_and_sleep(t_philo *p)
 
 	sleep_time(p->t_sleep);
 
-	// if (p_s->count_eat != -1)
-	// 	p_s->count_eat -= 1;
-	// if (p_s->count_eat == 0)
-	// {
-	// 	p_s->state = -1;
-	// 	return ;
-	// }
+	if (p->count_meals != -1)
+		p->count_meals -= 1;
 }

@@ -1,6 +1,5 @@
 #include "philo.h"
 
-
 int	ft_atoi(const char *str)
 {
 	long int	c;
