@@ -18,7 +18,6 @@ int	ft_atoi(const char *str)
 		c++;
 	while (str[c] >= '0' && str[c] <= '9')
 		number = number * 10 + str[c++] - '0';
-
 	return ((int)number * sign);
 }
 
