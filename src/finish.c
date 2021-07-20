@@ -1,13 +1,20 @@
-#include "philo.h"
+#include "../inc/philo.h"
 
-// void	finish(t_all *all)
-// {
-// 	int	i;
+void	finish(t_table *table)
+{
+	int	i;
 
-// 	i = -1;
-// 	while (++i < all->number_of_philo)
-// 		pthread_detach(all->p_a[i].thread);
-// 	i = -1;
-// 	while (++i < all->number_of_philo)
-// 		pthread_mutex_destroy(&all->forks[i]);
-// }
+	i = 0;
+	while (i < table->number_of_all) {
+        pthread_detach((void*)(&(table->philos[i].thread)));
+        ++i;
+    }
+    i = 0;
+    while (i < table->number_of_all)
+    {
+        pthread_mutex_destroy(&table->forks[i]);
+        ++i;
+    }
+    free(table->philos);
+    free(table->forks);
+}

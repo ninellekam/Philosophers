@@ -1,12 +1,14 @@
-#include "philo.h"
+#include "../inc/philo.h"
 
-int	check_if_die(t_philo *phi, t_table *table) {
+int	check_if_die(t_philo *phi) {
+	// printf("%llu ", phi);
 	if (get_time_now(0) - phi->t_last_eat >= phi->t_die && phi->count_meals != 0)
 	{
 		pthread_mutex_lock(phi->print);
 		printf("%llu ms %d died\n", get_time_now(phi->start), phi->index);
 		return (0);
 	}
+	return (1);
 }
 
 void	*func_for_thread(void *arg)
@@ -26,10 +28,10 @@ void	create_thread_func(t_table *table, int i)
 {
 	table->philos[i].start = get_time_now(0);
 	table->philos[i].t_last_eat = get_time_now(0);
-	pthread_create(&table->philos[i].thread, NULL, func_for_thread, &table->philos[i]);
+	pthread_create((void*)(&(table->philos[i].thread)), NULL, func_for_thread, (void*)(&table->philos[i]));
 }
 
-int	baze_process(t_table *table)
+int	base_process(t_table *table)
 {
 	int	i;
 
@@ -42,15 +44,21 @@ int	baze_process(t_table *table)
 	{
 		i = -1;
 		int cnt_of_all = 0;
-		t_philo *phi = &table->philos[i];
-		while (++i < table->number_of_all) {
-			check_if_die(phi, table);
-			cnt_of_all += phi->count_meals == 0;
+		while (++i < table->number_of_all)
+		{
+			if (check_if_die(&table->philos[i]) == 0) {
+				finish(table);
+				return (0);
+			}
+			if (table->philos[i].count_meals == 0) {
+				++cnt_of_all;
+				printf(" t \n");
+			}
 		}
 
 		if (cnt_of_all == table->number_of_all) {
 			break;
 		}
 	}
-	return (0);
+	return (1);
 }

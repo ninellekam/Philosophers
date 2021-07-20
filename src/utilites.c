@@ -1,4 +1,4 @@
-#include "philo.h"
+#include "../inc/philo.h"
 
 int	ft_atoi(const char *str)
 {
@@ -33,4 +33,23 @@ int	ft_isdigit(char *av)
 			return (0);
 	}
 	return (1);
+}
+
+uint64_t	get_time_now(uint64_t start)
+{
+	struct timeval	t;
+	uint64_t		time;
+
+	gettimeofday(&t, NULL);
+	time = (t.tv_sec * 1000) + (t.tv_usec / 1000) - start;
+	return (time);
+}
+
+void	sleep_time(uint64_t time)
+{
+	uint64_t	start;
+
+	start = get_time_now(0);
+	while (get_time_now(0) - start < time)
+		usleep(200);
 }

@@ -1,33 +1,24 @@
-NAME =		philo
-SRCS =		src/eat_forks_sleep.c
+NAME 	=		philo
+SRCS 	=		src/eat_forks_sleep.c\
+				src/finish.c\
+				src/init.c\
+				src/utilites.c\
+				src/threads.c
 
-OBJS =		${SRCS:.c=.o}		
-FLAGS =		 -g -MMD -pthread
-CC =		gcc
+OBJS 	=		${SRCS:.c=.o}
+FLAGS 	=		 -Wall -Wextra -Werror
+CC 		=		gcc
 
-%.o: %.c
-			$(CC) $(FLAGS) -c $< -o $@
-
-$(NAME):	${OBJS} 
-			$(CC) $(OBJS)  -o $(NAME)
-
-all:		$(NAME)
+all:	$(OBJS)
+		@$(CC) $(OBJS) $(FLAGS) -o $(NAME)
 
 clean:		
-			$(RM) $(OBJS)
+		@$(RM) $(OBJS)
 
-fclean:		clean
-			rm -rf $(NAME)
+fclean:	clean
+		@rm -rf $(NAME)
+		@rm *.o
 
-re:			fclean all
+re:		@fclean all
 
-norm:		fclean
-			norminette ./*.c 
-
-run:		
-			make re
-			make clean
-			./phil 5 800 200 200
-
-
-.PHONY: all clean fclean re run bonus a
+.PHONY: all clean fclean re run

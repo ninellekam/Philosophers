@@ -1,6 +1,6 @@
 #ifndef PHILO_H
 #define PHILO_H
-
+#pragma once
 #include <stdlib.h>
 #include <unistd.h>
 #include <pthread.h>
@@ -32,28 +32,19 @@ typedef struct			s_table
 	pthread_mutex_t		*forks;
 }						t_table;
 
-void	sleep_time(uint64_t time)
-{
-	uint64_t	start;
-
-	start = get_time_now(0);
-	while (get_time_now(0) - start < time)
-		usleep(100);
-}
-
-uint64_t	get_time_now(uint64_t start)
-{
-	struct timeval	t;
-	uint64_t		time;
-
-	gettimeofday(&t, NULL);
-	time = (t.tv_sec * 1000) + (t.tv_usec / 1000) - start;
-	return (time);
-}
-
-int		baze_process(t_table *table);
-int		check_if_die(t_philo *phi, t_table *table);
-void	*func_for_thread(void *arg);
-void	create_thread_func(t_table *table, int i);
+uint64_t	get_time_now(uint64_t start);
+int			ft_atoi(const char *str);
+int			ft_isdigit(char *av);
+void		sleep_time(uint64_t time);
+int			base_process(t_table *table);
+int			check_if_die(t_philo *phi);
+void		*func_for_thread(void *arg);
+void		create_thread_func(t_table *table, int i);
+void		take_forks(t_philo *p);
+void		eat(t_philo *p);
+void		put_forks_and_sleep(t_philo *p);
+int			base_process(t_table *table);
+void		create_thread_func(t_table *table, int i);
+void		finish(t_table *table);
 
 #endif
