@@ -1,12 +1,12 @@
 NAME 	=		philo
 SRCS 	=		src/eat_forks_sleep.c\
-				src/finish.c\
+				src/destroy.c\
 				src/init.c\
 				src/utilites.c\
 				src/threads.c
 
 OBJS 	=		${SRCS:.c=.o}
-FLAGS 	=		 -Wall -Wextra -Werror
+#FLAGS 	=		 -Wall -Wextra -Werror
 CC 		=		gcc
 
 all:	$(OBJS)
